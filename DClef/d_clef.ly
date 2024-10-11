@@ -1,6 +1,9 @@
 % File: d-clef.ly
 \version "2.24.2"
 
+% The D-clef by Alex Hellsten is licensed under a Creative Commons Attribution 4.0 International License
+% See http://hellsten.kapsi.fi and http://hellsten.kapsi.fi/dclef/
+
 % Define the custom d-clef stencil
 d-clef =
 #(ly:make-stencil
