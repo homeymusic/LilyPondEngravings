@@ -1,8 +1,10 @@
+% File: d-clef.ly
 \version "2.24.2"
 
+% Define the custom d-clef stencil
 d-clef =
 #(ly:make-stencil
-  `(path 0.001
+  `(path 0.00
      (moveto 0.0 -0.8571427
       curveto 0.09136459999999991 -0.47619029999999984 0.1827293000000001 -0.285714 0.45682329999999993 2.9999999995311555e-07
       lineto -0.045682300000000176 2.9999999995311555e-07
@@ -32,8 +34,10 @@ d-clef =
       curveto -0.8679642999999999 -0.09523780000000004 0.0 -0.47619029999999984 0.0 -0.8571427
       closepath)
      round round #t)
+   (cons -1.5 1.4) (cons -1.2 1.4)
    )
 
+% Automatically apply this layout with clef override when included
 \layout {
   \context {
     \Score
@@ -44,69 +48,7 @@ d-clef =
                 (glyph (ly:grob-property grob 'glyph-name))) 
                  (cond
                   ((equal? glyph "clefs.F")  
-                     (ly:stencil-translate-axis 
-                      (ly:stencil-scale d-clef (* 0.9 mlt) (* 0.9 mlt))
-                       1.5 0 )                     
-                     )
+                      (ly:stencil-scale d-clef (* 0.9 mlt) (* 0.9 mlt)))
                   (else (ly:clef::print grob)))))
   }
-}
-
-\header {
-  title = "I Don't Know What Happened in B Minor"
-  subtitle = "Interlochen Online ~ Music Theory Basics I ~ Create 4: Write a Melody!"
-  composer = "Brian McAuliff Mulloy"
-  tagline = \markup {
-    \column {
-      \center-align {
-        "This work is licensed under Creative Commons Attribution 4.0 International."
-        "To view a copy of this license, visit https://creativecommons.org/licenses/by/4.0/"
-      }
-    }
-  }
-}
-
-\score {
-  
-  \relative {
-    \key b \minor
-    \numericTimeSignature 
-    \time 4/4
-    \tempo Allegro 4 = 120 
-    \set Staff.clefGlyph = "clefs.F"
-    \set Staff.clefPosition = 0
-    \set Staff.middleCPosition = -1
-    \set Staff.middleCClefPosition = -1
-    
-    b4 d4 e4 fis4 | 
-    cis8 b8 a2. | 
-    g'4 fis8. g16 a2 | 
-    d,4 fis4 g4 a4 | 
-    f8 e8 d2. | 
-    cis8 b8 a8. g16 a2 | 
-    \mark \markup {
-      \override #'(font-size . 0.5)
-      \bold "Agitato"
-    }    
-    b8 cis8 d8 e8 fis8 g8 a8 b8 | 
-    a8 g8 fis8 e8 fis8 e8 d8 cis8 | 
-    b8 a8 g8 fis8 g8 a8 b16 cis16 d16 cis16 | 
-    \mark \markup {
-      \override #'(font-size . 0.5)
-      \bold "Allegro"
-    }    
-    b4 a8. g16 a2 | 
-    b4 d4 e4 fis4 | 
-    cis8 b8 a2. | 
-    g'4 fis8. g16 a2 | 
-    d,4 fis4 g a4 | 
-    e4 d8. e16 fis2 | 
-    b4 g4 fis4 d8. e16 |
-    d4 cis8. a16 b2 |
-    e8 d8 cis8 a8 b2 | 
-    c4 b2.\fermata
-  }
-  
-  \layout { }
-  \midi { }
 }
